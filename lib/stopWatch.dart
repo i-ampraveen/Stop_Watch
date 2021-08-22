@@ -12,6 +12,16 @@ class _WatchStopState extends State<WatchStop> {
   Stopwatch _myStopWatch;
   Timer _myTimer;
 
+  String formatTime(int milliseconds) {
+    var millisecs = ((milliseconds ~/ 10) % 98).toString().padLeft(2, '0');
+    var secs = milliseconds ~/ 1000;
+    //var hours = (secs ~/ 3600).toString().padLeft(2, '0');
+    var minutes = ((secs % 3600) ~/ 60).toString().padLeft(2, '0');
+    var seconds = (secs % 60).toString().padLeft(2, '0');
+
+    return "$minutes:$seconds.$millisecs";
+  }
+
   @override
   void initState() {
     super.initState();
@@ -40,6 +50,11 @@ class _WatchStopState extends State<WatchStop> {
     }
   }
 
+  void reset() {
+    _myStopWatch.reset();
+    _myStopWatch.stop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,15 +64,25 @@ class _WatchStopState extends State<WatchStop> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                  (_myStopWatch.elapsedMilliseconds).toString(),
-                style: TextStyle(
-                  fontSize: 40.0,
-                ),
+                formatTime(_myStopWatch.elapsedMilliseconds),
+                style: TextStyle(fontSize: 48.0),
               ),
-              ElevatedButton(
-                  onPressed: handleStartStop,
-                  child: Text(_myStopWatch.isRunning ? 'Stop' : 'Start'),
-              )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: handleStartStop,
+                    child: Text(_myStopWatch.isRunning ? 'Stop' : 'Start'),
+                  ),
+                  SizedBox(
+                    width: 24.0,
+                  ),
+                  ElevatedButton(
+                    onPressed: reset,
+                    child: Text('Reset'),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
