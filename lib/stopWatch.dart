@@ -9,8 +9,8 @@ class WatchStop extends StatefulWidget {
 }
 
 class _WatchStopState extends State<WatchStop> {
-  Stopwatch _myStopWatch;
-  Timer _myTimer;
+  late Stopwatch _myStopWatch;
+  late Timer _myTimer;
 
   String formatTime(int milliseconds) {
     var millisecs = ((milliseconds ~/ 10) % 98).toString().padLeft(2, '0');
@@ -55,6 +55,13 @@ class _WatchStopState extends State<WatchStop> {
     _myStopWatch.stop();
   }
 
+  void themeChanged() {
+    setState(() {
+      ThemeData.dark();
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,6 +90,13 @@ class _WatchStopState extends State<WatchStop> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 44.0,
+              ),
+              ElevatedButton(
+                child: Text('Theme change'),
+                onPressed: themeChanged,
+              )
             ],
           ),
         ),
