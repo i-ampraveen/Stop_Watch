@@ -7,17 +7,6 @@ void main() {
 
 final darkNotifier = ValueNotifier<bool>(false);
 
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       //theme: ThemeData.dark() ,
-//       home: WatchStop(),
-//       debugShowCheckedModeBanner: false,
-//     );
-//   }
-// }
-
 class MyApp extends StatelessWidget {
 
   @override

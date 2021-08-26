@@ -92,7 +92,7 @@ class _WatchStopState extends State<WatchStop> {
                 height: 44.0,
               ),
               ElevatedButton(
-                child: Text('Theme change'),
+                child: Text(isDark ? 'Light Mode' : 'Dark Mode'),
                 onPressed: (){
                   isDark =! isDark;
                   darkNotifier.value = isDark;
