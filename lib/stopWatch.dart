@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'main.dart';
+
 class WatchStop extends StatefulWidget {
   @override
   _WatchStopState createState() => _WatchStopState();
@@ -38,6 +40,7 @@ class _WatchStopState extends State<WatchStop> {
 
   @override
   void dispose() {
+    darkNotifier.dispose();
     _myTimer.cancel();
     super.dispose();
   }
@@ -55,15 +58,10 @@ class _WatchStopState extends State<WatchStop> {
     _myStopWatch.stop();
   }
 
-  void themeChanged() {
-    setState(() {
-      ThemeData.dark();
-    });
-  }
-
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = darkNotifier.value;
     return Scaffold(
       body: Container(
         child: Center(
@@ -95,7 +93,10 @@ class _WatchStopState extends State<WatchStop> {
               ),
               ElevatedButton(
                 child: Text('Theme change'),
-                onPressed: themeChanged,
+                onPressed: (){
+                  isDark =! isDark;
+                  darkNotifier.value = isDark;
+                },
               )
             ],
           ),
